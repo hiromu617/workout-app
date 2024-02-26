@@ -1,25 +1,47 @@
 import { prisma } from "@/lib/prismaClient";
-import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function Home() {
-  const bodyParts = await prisma.bodyPart.findMany({
-    include: { exercises: true },
+  const exerciseRecords = await prisma.exerciseRecord.findMany({
+    include: {
+      exercise: true,
+    },
+    orderBy: {
+      exercisedAt: "asc",
+    },
   });
+
   return (
-    <ul>
-      {bodyParts.map((b) => {
+    <ul className="flex flex-col gap-5">
+      {exerciseRecords.map((r) => {
         return (
-          <li key={b.id}>
-            {b.name}
-            <ul>
-              {b.exercises.map((e) => {
-                return <li key={e.id}>{e.name}</li>;
-              })}
-            </ul>
-          </li>
+          <Card key={r.id}>
+            <CardHeader>
+              <CardTitle>{r.exercise.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {r.time && (
+                <p>
+                  {r.weight && `${r.weight}kg`} {r.time}回*{r.rep}
+                </p>
+              )}
+              {r.min && (
+                <p>
+                  {r.min}min*{r.rep}
+                </p>
+              )}
+            </CardContent>
+            <CardFooter>{r.exercisedAt.toString()}</CardFooter>
+          </Card>
         );
       })}
-      <Button>aaa</Button>
     </ul>
   );
 }

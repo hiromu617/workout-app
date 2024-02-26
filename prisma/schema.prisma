@@ -15,16 +15,27 @@ generator client {
 }
 
 model BodyPart {
-   id    Int     @id @default(autoincrement())
-   name  String
-   exercises Exercise[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  exercises Exercise[]
 }
 
 model Exercise {
-  id    Int     @id @default(autoincrement())
-  name String
-  hasWeight Boolean
-  isUnitOfTime Boolean
-  bodyPart BodyPart @relation(fields: [bodyPartId], references: [id])
-  bodyPartId  Int
+  id             Int              @id @default(autoincrement())
+  name           String
+  hasWeight      Boolean
+  isUnitOfTime   Boolean
+  bodyPart       BodyPart         @relation(fields: [bodyPartId], references: [id])
+  bodyPartId     Int
+  ExerciseRecord ExerciseRecord[]
+}
+
+model ExerciseRecord {
+  id          Int      @id @default(autoincrement())
+  weight      Int?
+  time        Int?
+  rep         Int
+  exerciseId  Int
+  exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  exercisedAt DateTime
 }

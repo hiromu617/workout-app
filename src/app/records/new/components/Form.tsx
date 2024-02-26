@@ -55,7 +55,11 @@ export const Form: FC<Props> = ({ bodyPartsWithExercise }) => {
         <CardContent>
           <Label className="block">
             <div className="mb-3">日付</div>
-            <input type="hidden" name="date" value={date?.toDateString()} />
+            <input
+              type="hidden"
+              name="exercisedAt"
+              value={date?.toUTCString()}
+            />
           </Label>
           <Popover>
             <PopoverTrigger asChild>

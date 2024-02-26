@@ -28,7 +28,7 @@ export const submit = async (state: void, formData: FormData) => {
 
   if (!parsed.success) {
     // return { validatedErrors: parsed.error.flatten().fieldErrors };
-    return;
+    throw new Error(parsed.error.message);
   }
 
   await prisma.exerciseRecord.create({

@@ -84,69 +84,66 @@ export const Form: FC<Props> = ({ bodyPartsWithExercise }) => {
             </PopoverContent>
           </Popover>
           <div className="mt-5">
-            <div className="mb-3">メニュー一覧</div>
-            <div className="flex items-center gap-5">
-              <Label>
-                メニュー
-                <Select
-                  name="exerciseId"
-                  onValueChange={(value) => {
-                    const selected = bodyPartsWithExercise
-                      .flatMap((b) => b.exercises)
-                      .find((e) => String(e.id) === value);
-                    setSelectedExercise(selected);
-                  }}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="未選択" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {bodyPartsWithExercise.map((bodyPart) => {
-                      return (
-                        <SelectGroup key={bodyPart.id}>
-                          <SelectLabel>{bodyPart.name}</SelectLabel>
-                          {bodyPart.exercises.map((exercise) => {
-                            return (
-                              <SelectItem
-                                value={String(exercise.id)}
-                                key={exercise.id}
-                              >
-                                {exercise.name}
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectGroup>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </Label>
-              {selectedExercise && (
-                <>
-                  {selectedExercise.hasWeight && (
-                    <Label>
-                      重さ
-                      <Input type="number" name="weight" />
-                    </Label>
-                  )}
-                  {selectedExercise.isUnitOfTime ? (
-                    <Label>
-                      分数
-                      <Input type="number" name="min" />
-                    </Label>
-                  ) : (
-                    <Label>
-                      回数
-                      <Input type="number" name="time" />
-                    </Label>
-                  )}
+            <Label>
+              メニュー
+              <Select
+                name="exerciseId"
+                onValueChange={(value) => {
+                  const selected = bodyPartsWithExercise
+                    .flatMap((b) => b.exercises)
+                    .find((e) => String(e.id) === value);
+                  setSelectedExercise(selected);
+                }}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="未選択" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bodyPartsWithExercise.map((bodyPart) => {
+                    return (
+                      <SelectGroup key={bodyPart.id}>
+                        <SelectLabel>{bodyPart.name}</SelectLabel>
+                        {bodyPart.exercises.map((exercise) => {
+                          return (
+                            <SelectItem
+                              value={String(exercise.id)}
+                              key={exercise.id}
+                            >
+                              {exercise.name}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </Label>
+            {selectedExercise && (
+              <>
+                {selectedExercise.hasWeight && (
                   <Label>
-                    Rep数
-                    <Input type="number" name="rep" />
+                    重さ
+                    <Input type="number" name="weight" />
                   </Label>
-                </>
-              )}
-            </div>
+                )}
+                {selectedExercise.isUnitOfTime ? (
+                  <Label>
+                    分数
+                    <Input type="number" name="min" />
+                  </Label>
+                ) : (
+                  <Label>
+                    回数
+                    <Input type="number" name="time" />
+                  </Label>
+                )}
+                <Label>
+                  Rep数
+                  <Input type="number" name="rep" />
+                </Label>
+              </>
+            )}
           </div>
         </CardContent>
         <CardFooter>

@@ -85,6 +85,7 @@ export const Form: FC<Props> = ({ bodyPartsWithExercise }) => {
               <Label>
                 メニュー
                 <Select
+                  name="exerciseId"
                   onValueChange={(value) => {
                     const selected = bodyPartsWithExercise
                       .flatMap((b) => b.exercises)
@@ -121,23 +122,23 @@ export const Form: FC<Props> = ({ bodyPartsWithExercise }) => {
                   {selectedExercise.hasWeight && (
                     <Label>
                       重さ
-                      <Input type="number" />
+                      <Input type="number" name="weight" />
                     </Label>
                   )}
                   {selectedExercise.isUnitOfTime ? (
                     <Label>
                       分数
-                      <Input type="number" />
+                      <Input type="number" name="min" />
                     </Label>
                   ) : (
                     <Label>
                       回数
-                      <Input type="number" />
+                      <Input type="number" name="time" />
                     </Label>
                   )}
                   <Label>
                     Rep数
-                    <Input type="number" />
+                    <Input type="number" name="rep" />
                   </Label>
                 </>
               )}
